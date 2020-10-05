@@ -17,6 +17,7 @@ namespace EcommerceProject_Webbuy.Models.ViewModel
         public string Size { get; set; }
         public string Color { get; set; }
         public string Product_Image { get; set; }
+        public HttpPostedFileBase ImageFile { get; set; }
         public string Description { get; set; }
         public int Quantity { get; set; }   
         //public DateTime UpdatedDate { get; set; }
@@ -34,6 +35,7 @@ namespace EcommerceProject_Webbuy.Models.ViewModel
         public string Size { get; set; }
         public string Color { get; set; }
         public string Product_Image { get; set; }
+        public HttpPostedFileBase ImageFile { get; set; }
         public string Description { get; set; }
         public int? Quantity { get; set; }       
         
@@ -53,7 +55,8 @@ namespace EcommerceProject_Webbuy.Models.ViewModel
         public List<SelectListItem> Brands { get; set; }
         public string Size { get; set; }
         public string Color { get; set; }
-        public string Product_Image { get; set; }
+        public string Product_Image  { get; set; }
+        public HttpPostedFileBase ImageFile { get; set; }
         public string Description { get; set; }
         public int? Quantity { get; set; }
     }

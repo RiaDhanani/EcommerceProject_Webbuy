@@ -3,9 +3,12 @@ using EcommerceProject_Webbuy.Models.DataObjects;
 using EcommerceProject_Webbuy.Models.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
 
 namespace EcommerceProject_Webbuy.Controllers
 {
@@ -27,7 +30,8 @@ namespace EcommerceProject_Webbuy.Controllers
                             Brand_Name = p.Brand.Brand_Name,
                             Size = p.Size,
                             Color = p.Color,
-                            Product_Image = p.Product_Image,
+                            Product_Image = p.Product_Image, 
+                            //ImageFile = "\\Images" + "\\" + p.Product_Image.ToString(),
                             Description = p.Description,
                             Quantity = Convert.ToInt32(p.Quantity),
                             //UpdatedDate = Convert.ToDateTime(p.UpdatedDate)
@@ -130,7 +134,16 @@ namespace EcommerceProject_Webbuy.Controllers
                 dataModel.Brand_ID = model.Brand_ID;
                 dataModel.Size = model.Size;
                 dataModel.Color = model.Color;
+
+                //string FileName = Path.GetFileNameWithoutExtension(model.ImageFile.FileName);
+                string FileName = Path.GetFileName(model.ImageFile.FileName);
+                //string FileExtension = Path.GetExtension(model.ImageFile.FileName);
+                string UploadPath = ConfigurationManager.AppSettings["ImagesPath"].ToString();
+                model.Product_Image = UploadPath + FileName;
+                model.ImageFile.SaveAs(Server.MapPath((model.Product_Image)));
+
                 dataModel.Product_Image = model.Product_Image;
+                //dataModel.ImageFile = model.ImageFile;
                 dataModel.Description = model.Description;
                 dataModel.Quantity = model.Quantity;
                 
@@ -147,6 +160,7 @@ namespace EcommerceProject_Webbuy.Controllers
                 return View(model);
             }
         }
+        
 
         // GET: Product/Edit/5
         public ActionResult Edit(int id)
@@ -173,16 +187,18 @@ namespace EcommerceProject_Webbuy.Controllers
             model.Product_Image = modelData.Product_Image;
             model.Description = modelData.Description;
             model.Quantity = modelData.Quantity;
-            
-           
+
+            TempData["ImagesPath"] = model.Product_Image;
 
             return View(model);
+            
         }
 
         // POST: Product/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, ProductEditViewModel model)
+        public ActionResult Edit(int id,ProductEditViewModel model, HttpPostedFileBase ImageFile)
         {
+            
             try
             {
                 // TODO: Add update logic here
@@ -195,14 +211,37 @@ namespace EcommerceProject_Webbuy.Controllers
                 dataModel.Brand_ID = model.Brand_ID;
                 dataModel.Size = model.Size;
                 dataModel.Color = model.Color;
-                dataModel.Product_Image = model.Product_Image;
-                dataModel.Description = model.Description;
-                dataModel.Quantity = model.Quantity;
-                
-                ProductManagement productManagement = new ProductManagement();
-                productManagement.EditProduct(dataModel);
+                    
 
-                return RedirectToAction("Index");
+                if (ImageFile == model.ImageFile)
+                {
+                    dataModel.Product_Image = TempData["ImagesPath"].ToString();
+                    //dataModel.Product_Image = model.Product_Image;
+                    dataModel.Description = model.Description;
+                    dataModel.Quantity = model.Quantity;
+
+                    ProductManagement productManagement = new ProductManagement();
+                    productManagement.EditProduct(dataModel);
+
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    string FileName = Path.GetFileName(model.ImageFile.FileName);
+                    string UploadPath = ConfigurationManager.AppSettings["ImagesPath"].ToString();
+                    model.Product_Image = UploadPath + FileName;
+                    model.ImageFile.SaveAs(Server.MapPath((model.Product_Image)));
+                    dataModel.Product_Image = model.Product_Image;
+                    dataModel.Description = model.Description;
+                    dataModel.Quantity = model.Quantity;
+
+                    ProductManagement productManagement = new ProductManagement();
+                    productManagement.EditProduct(dataModel);
+
+                    return RedirectToAction("Index");
+                }
+                //dataModel.Product_Image = model.Product_Image;
+                
                 
             }
             catch(Exception e)

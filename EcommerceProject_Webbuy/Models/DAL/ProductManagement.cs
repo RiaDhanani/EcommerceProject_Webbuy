@@ -51,6 +51,7 @@ namespace EcommerceProject_Webbuy.Models.DAL
             cmd.Parameters.AddWithValue("@Size", dataModel.Size);
             cmd.Parameters.AddWithValue("@Color", dataModel.Color);
             cmd.Parameters.AddWithValue("@Product_Image", dataModel.Product_Image);
+            //cmd.Parameters.AddWithValue("@Product_Image", "Images\\" + dataModel.ImageFile.FileName);
             cmd.Parameters.AddWithValue("@Description", dataModel.Description);
             cmd.Parameters.AddWithValue("@Quantity", dataModel.Quantity);
 

@@ -4,13 +4,15 @@
     ViewBag.Title = "Edit";
 }
 
+
+
 <h2>Edit</h2>
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "Product", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>ProductEditViewModel</h4>
         <hr />
@@ -76,8 +78,11 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Product_Image, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Product_Image, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Product_Image, "", new { @class = "text-danger" })
+                <img src="@Url.Content(Model.Product_Image)" alt="not visible" width="230" height="230" />
+                <input type="file" name="ImageFile" />
+                
+                @*@Html.EditorFor(model => model.Product_Image, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Product_Image, "", new { @class = "text-danger" })*@
             </div>
         </div>
 
@@ -113,19 +118,14 @@
     @Scripts.Render("~/bundles/jqueryval")
 
 <script>
-
     $(document).ready(function () {
-
         $("#Categories").change(function () {
-
             var CatID = $("#Categories").val();
-
             $.ajax({
                 url: "/Product/getSubcategory",
                 data: { "Category_ID": CatID },
                 contentType: "application/json",
                 type: "get",
-
                 success: function (results) {
                     var subCategory = $("#SubCategory_ID");
                     subCategory.empty();
