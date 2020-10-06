@@ -2,81 +2,46 @@
 
 @{
     ViewBag.Title = "Index";
+    int counter = 0;
 }
 
-<h2>Index</h2>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title All Products - Modern Living </title>
+    <link rel="stylesheet" href="~/Content/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        @*<th>
-            @Html.DisplayNameFor(model => model.Product_ID)
-        </th>*@
-        <th>
-            @Html.DisplayNameFor(model => model.Product_Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Price)
-        </th>
-        @*<th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>*@
-        <th>
-            @Html.DisplayNameFor(model => model.Product_Image)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Quantity)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Brand_Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SubCategory_Name)
-        </th>
-        @*<th>
-            @Html.DisplayNameFor(model => model.UpdatedDate)
-        </th>*@
-        <th></th>
-    </tr>
+</head>
 
-@foreach (var item in Model) {
-    <tr>
-        @*<td>
-            @Html.DisplayFor(modelItem => item.Product_ID)
-        </td>*@
-        <td>
-            @Html.DisplayFor(modelItem => item.Product_Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Price)
-        </td>
-        @*<td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>*@
-        <td>
-            @*@Html.DisplayFor(modelItem => item.Product_Image)*@
-            <img src="@Url.Content(item.Product_Image)" alt="not visible" width="230" height="230" />
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Quantity)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Brand_Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SubCategory_Name)
-        </td>
-        @*<td>
-            @Html.DisplayFor(modelItem => item.UpdatedDate)
-        </td>*@
-        <td>
-            @Html.ActionLink("Edit", "Edit", new {  id=item.Product_ID  }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) 
-            @*@Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
-        </td>
-    </tr>
-}
+<body>
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            if (counter != 0 && counter % 3 == 0)
+            {
+            @:</div>
+            @:<div class="row">
+            }
 
-</table>
+            <div class="col-md-4">
+                <div class="thumbnail">
+                    <img src="@Url.Content(item.Product_Image)" alt="not visible" data-holder-rendered="true" style="height: 200px; width: 100%; display: block;" />
+                    <div class="caption">
+                        <h3 id="thumbnail-label">@Html.DisplayFor(modelItem => item.Product_Name)</h3>
+                        <p>Rs @Html.DisplayFor(modelItem => item.Price)</p>
+                    </div>
+                </div>
+            </div>
+
+            counter++;
+        }
+    </div>
+   
+</body>
+</html>

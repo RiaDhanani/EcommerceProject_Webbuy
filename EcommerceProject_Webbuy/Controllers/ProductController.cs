@@ -44,7 +44,14 @@ namespace EcommerceProject_Webbuy.Controllers
         // GET: Product/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            ProductManagement productManagement = new ProductManagement();
+            ProductDO model = productManagement.GetProductByID(id);
+            ProductDetailsViewModel details = new ProductDetailsViewModel();
+            details.Product_ID = model.Product_ID;
+            details.Product_Name = model.Product_Name;
+            details.Product_Image = model.Product_Image;
+            details.Description = model.Description;
+            return View(details);
         }
 
         private List<SelectListItem> getBrandDropDownData()

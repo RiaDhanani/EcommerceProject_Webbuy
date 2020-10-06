@@ -1,0 +1,51 @@
+﻿@model EcommerceProject_Webbuy.Models.ViewModel.ProductDetailsViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ProductDetailsViewModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Product_ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Product_ID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Product_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Product_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Product_Image)
+        </dt>
+
+        <dd>
+            @*@Html.DisplayFor(model => model.Product_Image)*@
+            <img src="@Url.Content(Model.Product_Image)" alt="not visible" width="230" height="230" />
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @*@Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |*@
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -3,34 +3,35 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Modern Living </title>
+    <title>@ViewBag.Title Modern Living </title>
+    <link rel="stylesheet" href="~/Content/style.css" >
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Modern Living", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+
+    <div class="container">
+        <div class="navbar">
+            <div class="logo">
+                <img src="~/Images/logo.png" width="125px">
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
+
+            <nav>
+                <ul id="MenuItems">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Products", "Index", "Product")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("Add Products", "Create", "Product")</li>
-                    <li>@Html.ActionLink("Catalog", "Index", "Catalog")</li>
+                    <li>@Html.ActionLink("Account", "Register", "Account")</li>
                 </ul>
-                @Html.Partial("_LoginPartial")
-            </div>
+                @*@Html.Partial("_LoginPartial")*@
+            </nav>
+            <img src="~/Images/cart.png" width="30px" height="30px">
+            <img src="~/Images/menu.png" class="menu-icon" onclick="menutoggle()">
         </div>
     </div>
+
     <div class="container body-content">
         @RenderBody()
         <hr />
@@ -42,5 +43,19 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+<!-----JS for toggle menu-->
+<script>
+    var MenuItems = document.getElementById("MenuItems");
+    MenuItems.style.maxHeight = "0px";
+
+    function menutoggle() {
+        if (MenuItems.style.maxHeight == "0px") {
+            MenuItems.style.maxHeight = "200px";
+        }
+        else {
+            MenuItems.style.maxHeight = "0px";
+        }
+    }
+</script>
 </body>
 </html>

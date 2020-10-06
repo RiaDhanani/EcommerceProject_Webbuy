@@ -60,4 +60,14 @@ namespace EcommerceProject_Webbuy.Models.ViewModel
         public string Description { get; set; }
         public int? Quantity { get; set; }
     }
+
+    public class ProductDetailsViewModel
+    {
+        public int Product_ID { get; set; }
+        public string Product_Name { get; set; }
+        public string Product_Image { get; set; }
+        public HttpPostedFileBase ImageFile { get; set; }
+        public string Description { get; set; }
+       
+    }
 }
