@@ -4,6 +4,11 @@
     ViewBag.Title = "Details";
 }
 
+<html>
+<head>
+    <link rel="stylesheet" href="~/Content/style.css">
+</head>
+
 <h2>Details</h2>
 
 <div>
@@ -43,9 +48,16 @@
             @Html.DisplayFor(model => model.Description)
         </dd>
 
+
+        @*@Html.ActionLink("Add To Cart", "AddToCart", new { id = Model.Product_ID }, "Cart")*@
+        @Html.ActionLink("Add To Cart", "AddToCart", "Cart", new { id=Model.Product_ID }, null)
+        @*<a href="@Html.ActionLink("Add To Cart", "AddToCart", "CartController", new {  id=Model.Product_ID  })" class="btn">Add To Cart</a>*@
+        @*<input type="button" value="Add To Cart" class="btn" onclick="location.href='@Url.Action("AddToCart", "CartController", new { id = Model.Product_ID }) '" />*@
+
     </dl>
 </div>
 <p>
     @*@Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |*@
     @Html.ActionLink("Back to List", "Index")
 </p>
+</html>

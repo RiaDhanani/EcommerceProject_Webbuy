@@ -68,6 +68,6 @@ namespace EcommerceProject_Webbuy.Models.ViewModel
         public string Product_Image { get; set; }
         public HttpPostedFileBase ImageFile { get; set; }
         public string Description { get; set; }
-       
+
     }
 }

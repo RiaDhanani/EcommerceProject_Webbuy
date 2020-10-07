@@ -35,6 +35,8 @@
                     <div class="caption">
                         <h3 id="thumbnail-label">@Html.DisplayFor(modelItem => item.Product_Name)</h3>
                         <p>Rs @Html.DisplayFor(modelItem => item.Price)</p>
+                        <br />
+                        <p>@Html.ActionLink("Details", "Details", new {  id=item.Product_ID  })</p>
                     </div>
                 </div>
             </div>
